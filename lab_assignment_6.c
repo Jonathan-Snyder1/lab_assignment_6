@@ -1,8 +1,28 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int search(int numbers[], int low, int high, int value) 
+int search(int numbers[], int low, int high, int value)
 {
-	return -1;
+     //if subarray is empty, return -1
+    if (low > high) {
+        return -1;
+    }
+
+    // Calculate the middle of the subarray
+    int mid = low + (high - low) / 2;
+
+    // Check middle element
+    if (numbers[mid] == value) {
+        return mid;
+    }
+
+    // If value is less than middle, search the left half
+    if (value < numbers[mid]) {
+        return search(numbers, low, mid - 1, value);
+    }
+
+    // If value is greater than middle, search the right half
+    return search(numbers, mid + 1, high, value);
 }
 
 void printArray(int numbers[], int sz)
@@ -28,7 +48,7 @@ int main(void)
 	FILE* inFile = fopen("input.txt","r");
 
 	fscanf(inFile, " %d\n", &numInputs);
-	
+
 	while (numInputs-- > 0)
 	{
 		fscanf(inFile, " %d\n", &countOfNums);
