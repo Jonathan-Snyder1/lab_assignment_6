@@ -3,26 +3,16 @@
 
 int search(int numbers[], int low, int high, int value)
 {
-     //if subarray is empty, return -1
-    if (low > high) {
-        return -1;
+    int mid;
+    if (low <= high){
+        mid = (low+high)/2;
+        if (value < numbers[mid])
+            return search(numbers, low, mid-1,value);
+        else if (value > numbers[mid])
+            return search(numbers, mid+1, high, value);
+        else return 1;
     }
-
-    // Calculate the middle of the subarray
-    int mid = low + (high - low) / 2;
-
-    // Check middle element
-    if (numbers[mid] == value) {
-        return mid;
-    }
-
-    // If value is less than middle, search the left half
-    if (value < numbers[mid]) {
-        return search(numbers, low, mid - 1, value);
-    }
-
-    // If value is greater than middle, search the right half
-    return search(numbers, mid + 1, high, value);
+    return 0;
 }
 
 void printArray(int numbers[], int sz)
